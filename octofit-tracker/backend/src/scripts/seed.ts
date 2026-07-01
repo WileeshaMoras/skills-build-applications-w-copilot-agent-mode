@@ -1,5 +1,7 @@
+// Seed the octofit_db database with test data
 import dotenv from 'dotenv';
-import { connectDatabase, disconnectDatabase } from '../database';
+import connectDB from '../config/database';
+import { disconnectDatabase } from '../database';
 import { User, Team, Activity, Workout, Leaderboard } from '../models';
 
 dotenv.config();
@@ -9,7 +11,7 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db
 async function seedDatabase() {
   console.log('Seed the octofit_db database with test data');
 
-  await connectDatabase();
+  await connectDB();
   console.log('Connected to MongoDB for seeding');
 
   await Promise.all([
