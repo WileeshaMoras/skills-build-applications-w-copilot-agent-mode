@@ -10,6 +10,9 @@ const app = express();
 const PORT = Number(process.env.PORT || 8000);
 const MONGO_URI = getMongoUri();
 const CODESPACE_NAME = process.env.CODESPACE_NAME;
+
+// Codespaces-aware API URL support
+// Uses CODESPACE_NAME to build the address with -8000.app.github.dev for hosted access.
 const API_BASE_URL = CODESPACE_NAME
   ? `https://${CODESPACE_NAME}-8000.app.github.dev`
   : `http://localhost:${PORT}`;
