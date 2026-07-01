@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+import { connectDatabase, getMongoUri } from './database';
 import { User, Team, Activity, Workout, Leaderboard } from './models';
 
 dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT || 8000);
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db';
+const MONGO_URI = getMongoUri();
 const CODESPACE_NAME = process.env.CODESPACE_NAME;
 const API_BASE_URL = CODESPACE_NAME
   ? `https://${CODESPACE_NAME}-8000.app.github.dev`
@@ -72,8 +72,9 @@ app.post('/api/workouts', async (req, res) => {
 
 async function startServer() {
   try {
-    await mongoose.connect(MONGO_URI);
+    await connectDatabase();
     console.log('Connected to MongoDB');
+    console.log('MongoDB URI:', MONGO_URI);
     console.log('Codespaces-aware API URL:', API_BASE_URL);
 
     app.listen(PORT, '0.0.0.0', () => {
