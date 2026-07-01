@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { connectDatabase } from '../database';
+import { connectDatabase, disconnectDatabase } from '../database';
 import { User, Team, Activity, Workout, Leaderboard } from '../models';
 
 dotenv.config();
@@ -102,7 +102,7 @@ async function seedDatabase() {
     leaderboard: leaderboard.length,
   });
 
-  await mongoose.disconnect();
+  await disconnectDatabase();
   console.log('Disconnected from MongoDB after seeding');
 }
 

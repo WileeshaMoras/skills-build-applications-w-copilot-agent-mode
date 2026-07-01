@@ -9,6 +9,14 @@ export const connectDatabase = async () => {
   return mongoose.connect(MONGO_URI);
 };
 
+export const disconnectDatabase = async () => {
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
+};
+
 export const getMongoUri = () => MONGO_URI;
+
+export const isDatabaseConnected = () => mongoose.connection.readyState === 1;
 
 export default mongoose;
