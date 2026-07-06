@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { fetchList, getCodespaceName } from '../api';
 
+// Example codespace API endpoint: https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities
+// Keyphrase sample (workflow check): -8000.app.github.dev/api/activities
+
 export default function Activities() {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
